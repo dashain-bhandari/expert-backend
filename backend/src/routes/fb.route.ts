@@ -55,13 +55,13 @@ router.get(
 // );
 
 router.get(
-  '/facebook/token',
+  '/facebook/token/:code',
   getAccessTokenFromCode
   // passport.authenticate('facebook', { scope: ['public_profile','email'] })
 );
 
 router.get(
-  '/facebook/data',
+  '/facebook/data/:access_token',
   getFacebookUserData
   // passport.authenticate('facebook', { scope: ['public_profile','email'] })
 );
