@@ -158,7 +158,7 @@ export async function fbLogInHandler(
       
       accessToken: data.access_token,
     });
-   } catch (error) {
+   } catch (error:any) {
     console.error(colors.red("msg:", error.message));
     next(new AppError(error.message, 500));
    }
