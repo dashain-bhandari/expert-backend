@@ -144,9 +144,9 @@ export async function fbLogInHandler(
       url: 'https://graph.facebook.com/v4.0/oauth/access_token',
       method: 'get',
       params: {
-        client_id: process.env.APP_ID_GOES_HERE,
-        client_secret: process.env.APP_SECRET_GOES_HERE,
-        redirect_uri: 'https://www.example.com/authenticate/facebook/',
+        client_id: "746525737287945",
+        client_secret: "bfd4f4091fe3b43bc0c7959f036d6632",
+        redirect_uri: "https://expert-vercel.vercel.app/profile",
         code,
       },
     });
