@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport=require('passport')
-const Client_URL = `https://https://expert-vercel.vercel.app//profile`;
+const Client_URL = `https://expert-vercel.vercel.app//profile`;
 
 router.get(
   '/login/failed',
@@ -54,13 +54,11 @@ router.get(
 
 router.get(
   '/facebook/callback',
-  // passport.authenticate('facebook', {
-  //   successRedirect: Client_URL,
-  //   failureRedirect: '/login/failed',
-  // })
-(req:any,res:any)=>{
-return res.json({msg:"hiii"})
-}
+  passport.authenticate('facebook', {
+    successRedirect: Client_URL,
+    failureRedirect: '/login/failed',
+  })
+
  
 );
 

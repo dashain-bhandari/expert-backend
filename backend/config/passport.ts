@@ -5,9 +5,9 @@ passport.use(
   new FacebookStrategy(
     {
       //options
-      clientID: "938808197938919",
-      clientSecret: "55f5681b4a118e0390dd6e5768b457fa",
-      callbackURL: "https://backend.expertbusiness/api/auth/facebook/callback",
+      clientID: "746525737287945",
+      clientSecret: "bfd4f4091fe3b43bc0c7959f036d6632",
+      callbackURL: "https://backend.expertbusiness/api/fbAuth/facebook/callback",
     },
     function (accessToken: any, refreshToken: any, profile: any, done: any) {
       console.log("passport.js on success oauth login");
