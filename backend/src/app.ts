@@ -41,18 +41,19 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://www.facebook.com",
-      "https://expert-vercel.vercel.app",
-      "http://expert-vercel.vercel.app",
-      "https://demo.expertbusiness.com.np",
-      "http://demo.expertbusiness.com.np",
-      "http://localhost:3000",
-      "https://vercel-frontend-sand.vercel.app",
-      "http://vercel-frontend-sand.vercel.app",
-      "https://backend.expertbusiness.com.np"
-    ],
+    // origin: [
+    //   "http://localhost:5173",
+    //   "https://www.facebook.com",
+    //   "https://expert-vercel.vercel.app",
+    //   "http://expert-vercel.vercel.app",
+    //   "https://demo.expertbusiness.com.np",
+    //   "http://demo.expertbusiness.com.np",
+    //   "http://localhost:3000",
+    //   "https://vercel-frontend-sand.vercel.app",
+    //   "http://vercel-frontend-sand.vercel.app",
+    //   "https://backend.expertbusiness.com.np"
+    // ],
+    origin: "*",
     credentials: true,
   })
 );
