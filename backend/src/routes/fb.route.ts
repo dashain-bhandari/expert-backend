@@ -1,3 +1,5 @@
+import { getAccessTokenFromCode, getFacebookUserData } from "../controller/fb.controller";
+
 const router = require('express').Router();
 const passport=require('passport')
 const Client_URL = `https://expert-vercel.vercel.app/profile`;
@@ -52,6 +54,17 @@ router.get(
 //   }
 // );
 
+router.get(
+  '/facebook/token',
+  getAccessTokenFromCode
+  // passport.authenticate('facebook', { scope: ['public_profile','email'] })
+);
+
+router.get(
+  '/facebook/data',
+  getFacebookUserData
+  // passport.authenticate('facebook', { scope: ['public_profile','email'] })
+);
 router.get(
   '/facebook/callback',
   passport.authenticate('facebook', {

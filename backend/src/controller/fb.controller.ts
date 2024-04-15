@@ -136,3 +136,53 @@ export async function fbLogInHandler(
   //     return res.status(500).json({ error: error.message });
   //   }
   // }
+
+  export async function getAccessTokenFromCode(req: Request, res: Response, next: NextFunction) {
+   try {
+    const code=req.params.code
+    const { data } = await axios({
+      url: 'https://graph.facebook.com/v4.0/oauth/access_token',
+      method: 'get',
+      params: {
+        client_id: process.env.APP_ID_GOES_HERE,
+        client_secret: process.env.APP_SECRET_GOES_HERE,
+        redirect_uri: 'https://www.example.com/authenticate/facebook/',
+        code,
+      },
+    });
+    console.log(data); 
+    return res.status(201).json({
+      status: "success",
+      msg: "Register success",
+      
+      accessToken: data.access_token,
+    });
+   } catch (error:any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+   }
+  };
+
+  export async function getFacebookUserData(req: Request, res: Response, next: NextFunction) {
+    try {
+      const access_token=req.params.access_token
+      const { data } = await axios({
+        url: 'https://graph.facebook.com/me',
+        method: 'get',
+        params: {
+          fields: ['id', 'email', 'first_name', 'last_name'].join(','),
+          access_token: access_token,
+        },
+      });
+      console.log(data); // { id, email, first_name, last_name }
+      return ({
+        status: "success",
+        msg: "Register success",
+        data:data
+      });
+    } catch (error:any) {
+      console.error(colors.red("msg:", error.message));
+      next(new AppError("Internal server error", 500));
+    }
+  };
+  
