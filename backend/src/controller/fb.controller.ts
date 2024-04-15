@@ -140,6 +140,7 @@ export async function fbLogInHandler(
   export async function getAccessTokenFromCode(req: Request, res: Response, next: NextFunction) {
    try {
     const code=req.params.code
+   try {
     const { data } = await axios({
       url: 'https://graph.facebook.com/v4.0/oauth/access_token',
       method: 'get',
@@ -157,6 +158,10 @@ export async function fbLogInHandler(
       
       accessToken: data.access_token,
     });
+   } catch (error) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError(error.message, 500));
+   }
    } catch (error:any) {
     console.error(colors.red("msg:", error.message));
     next(new AppError(error.message, 500));
