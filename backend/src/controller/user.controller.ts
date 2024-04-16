@@ -458,12 +458,12 @@ export async function forgotPwHandler(
     const info = await transporter.sendMail({
       from: "expert",
       to: req.body.email,
-      subject: "Verify Email ✔",
+      subject: "Forgot Password",
       html: `<div>
     <div class="container">
      <div class="content">
          <p class="heading">Please click on button below to verify your email.</p>
-         <a class=" verify-button" href="http://localhost:3000/forgot-password/${token}?email=${userEmail}&expiry=${expiryTime.getTime()}">Recover password</a>
+         <a class=" verify-button" href="https://expert-vercel.vercel.app/forgot-password/${token}?email=${userEmail}&expiry=${expiryTime.getTime()}">Recover password</a>
      </div>
      <div class="footer">
          <p>Thanks and Regards, expert .</p>
