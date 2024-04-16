@@ -59,7 +59,13 @@ router.get(
   getAccessTokenFromCode
   // passport.authenticate('facebook', { scope: ['public_profile','email'] })
 );
-
+router.get('/facebook/data/:access_token',(req:Request,res:Response)=>{
+  return ({
+    status: "success",
+    msg: "Register success",
+    data:"no cors"
+  });
+})
 router.get(
   '/facebook/data/:access_token',
   getFacebookUserData
