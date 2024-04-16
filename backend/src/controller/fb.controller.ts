@@ -181,7 +181,7 @@ export async function fbLogInHandler(
         },
       });
       console.log(data); // { id, email, first_name, last_name }
-      return ({
+      return res.status(201).json({
         status: "success",
         msg: "Register success",
         data:data

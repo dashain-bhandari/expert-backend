@@ -1,9 +1,10 @@
 import { getAccessTokenFromCode, getFacebookUserData } from "../controller/fb.controller";
-
+import cors from "cors"
 const router = require('express').Router();
 const passport=require('passport')
 const Client_URL = `https://expert-vercel.vercel.app/profile`;
 
+router.use(cors());
 router.get(
   '/login/failed',
 
@@ -40,38 +41,31 @@ router.get(
 );
 
 
-// ! for facebook, when user clicks login with fb
 
-router.get(
-  '/facebook',
-  passport.authenticate('facebook', { scope: ['public_profile','email'] })
-);
 
-// router.get(
-//   '/facebook',
-//   (req:any,res:any)=>{
-// return res.json({msg:"routes working"})
-//   }
-// );
 
 router.get(
   '/facebook/token/:code',
   getAccessTokenFromCode
-  // passport.authenticate('facebook', { scope: ['public_profile','email'] })
+
 );
-router.get('/facebook/data/:access_token',(req:Request,res:Response)=>{
+// router.get('/facebook/data/:access_token',(req:Request,res:Response)=>{
   
-  return ({
-    status: "success",
-    msg: "Register success",
-    data:"no cors"
-  });
-})
-// router.get(
-//   '/facebook/data/:access_token',
-//   getFacebookUserData
-//   // passport.authenticate('facebook', { scope: ['public_profile','email'] })
-// );
+//   return ({
+//     status: "success",
+//     msg: "Register success",
+//     data:"no cors"
+//   });
+// })
+
+
+router.get(
+  '/facebook/data/:access_token',
+  getFacebookUserData
+
+);
+
+
 router.get(
   '/facebook/callback',
   passport.authenticate('facebook', {
