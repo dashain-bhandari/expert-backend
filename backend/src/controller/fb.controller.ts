@@ -171,6 +171,7 @@ export async function fbLogInHandler(
   export async function getFacebookUserData(req: Request, res: Response, next: NextFunction) {
     try {
       const access_token=req.params.access_token
+     try {
       const { data } = await axios({
         url: 'https://graph.facebook.com/me',
         method: 'get',
@@ -185,6 +186,10 @@ export async function fbLogInHandler(
         msg: "Register success",
         data:data
       });
+     } catch (error:any) {
+      console.error(colors.red("msg:", error.message));
+      next(new AppError(error.message, 500));
+     }
     } catch (error:any) {
       console.error(colors.red("msg:", error.message));
       next(new AppError(error.message, 500));
