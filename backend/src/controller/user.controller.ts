@@ -256,12 +256,19 @@ export async function getUserFromTokenHandler(
 ) {
   try {
     const decodedUser: any = req.user;
+    const user = await findUser({ userId:decodedUser.userId });
     console.log(req.user);
-    return res.json({
-      status: "success",
-      msg: "Get user from token success",
-      data: decodedUser,
-    });
+   if(user)
+    {
+      return res.json({
+        status: "success",
+        msg: "Get user from token success",
+        data:user,
+      });
+    }
+    else{
+      next(new AppError("User doesn't exist", 404));
+    }
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
     next(new AppError("Internal server error", 500));
