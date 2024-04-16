@@ -60,17 +60,18 @@ router.get(
   // passport.authenticate('facebook', { scope: ['public_profile','email'] })
 );
 router.get('/facebook/data/:access_token',(req:Request,res:Response)=>{
+  
   return ({
     status: "success",
     msg: "Register success",
     data:"no cors"
   });
 })
-router.get(
-  '/facebook/data/:access_token',
-  getFacebookUserData
-  // passport.authenticate('facebook', { scope: ['public_profile','email'] })
-);
+// router.get(
+//   '/facebook/data/:access_token',
+//   getFacebookUserData
+//   // passport.authenticate('facebook', { scope: ['public_profile','email'] })
+// );
 router.get(
   '/facebook/callback',
   passport.authenticate('facebook', {
@@ -84,14 +85,3 @@ router.get(
 export default router;
 
 
-// import express from "express";
-
-// import { fbLogInHandler } from "../controller/fb.controller";
-// import { requireAdmin } from "../middleware/requireAdmin";
-// import { requireSuperAdmin } from "../middleware/requireSuperAdmin";
-
-// const router = express.Router();
-
-//   router.post('/',fbLogInHandler);
-
-//   export default router;
