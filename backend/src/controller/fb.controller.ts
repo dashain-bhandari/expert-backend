@@ -81,62 +81,7 @@ export async function fbLogInHandler(
     }
   }
 
-  // export async function fbLogInHandler(
-  //   req: Request,
-  //   res: Response,
-  //   next: NextFunction
-  // ) {
-  //   try {
-  //     const { access_token, expires_in, provider_token, refresh_token } = req.body;
-  
-  //     // Verify the Supabase session
-  //     console.log(req.body)
-  //     if (!access_token || !provider_token) {
-  //       return res.status(400).json({ message: 'Missing required data' });
-  //     }
-    
-  //     // Fetch the user's profile from Facebook Graph API
-  //     const fbResponse = await axios.get('https://graph.facebook.com/v13.0/me', {
-  //       params: {
-  //         fields: 'id,name,email',
-  //         access_token: provider_token,
-  //       },
-  //     });
-  //     console.log(fbResponse)
-  //     const { id, name, email } = fbResponse.data;
-  //     const token = crypto.randomBytes(20).toString("hex");
-  //     // Save the user to MongoDB
-  //     const accessToken = jwt.sign(
-  //               {user:email},
-  //               `${process.env.AUTH_SECRET_KEY}`,
-  //               {
-  //                 expiresIn: "1d",
-  //               }
-  //             );
-  //             console.log("token",accessToken);
-  //             const createdUser = await createUser({
-                
-  //               fullName:name,
-  //               email,
-  //               username:"ddd",
-  //               password:"ddd",
-  //               role:"user",
-  //               verifyToken: token,
-  //               isVerified: true,
-  //             });
-             
-  //             return res.status(201).json({
-  //               status: "success",
-  //               msg: "Register success",
-  //               data: createdUser,
-  //               accessToken: accessToken,
-  //             });
-  //   } catch (error:any) {
-  //     console.error(error);
-  //     return res.status(500).json({ error: error.message });
-  //   }
-  // }
-
+ 
   export async function getAccessTokenFromCode(req: Request, res: Response, next: NextFunction) {
    try {
     const code=req.params.code

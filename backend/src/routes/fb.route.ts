@@ -1,4 +1,4 @@
-import { getAccessTokenFromCode, getFacebookUserData } from "../controller/fb.controller";
+import { fbLogInHandler, getAccessTokenFromCode, getFacebookUserData } from "../controller/fb.controller";
 import cors from "cors"
 const router = require('express').Router();
 const passport=require('passport')
@@ -41,7 +41,10 @@ router.get(
 );
 
 
-
+router.post(
+  '/facebook/login',
+  fbLogInHandler
+);
 
 
 router.get(
@@ -49,14 +52,6 @@ router.get(
   getAccessTokenFromCode
 
 );
-// router.get('/facebook/data/:access_token',(req:Request,res:Response)=>{
-  
-//   return ({
-//     status: "success",
-//     msg: "Register success",
-//     data:"no cors"
-//   });
-// })
 
 
 router.get(
