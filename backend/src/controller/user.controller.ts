@@ -140,6 +140,17 @@ export async function updateUserHandler(
       next(new AppError("User does not exist", 404));
     }
     console.log(update);
+    const existingUserWithEmail = await findUser({ email: update.email });
+    if (existingUserWithEmail) {
+      return next(new AppError("User with this email already exists", 409));
+    }
+
+    const existingUserWithUsername = await findUser({
+      username: update.username,
+    });
+    if (existingUserWithUsername) {
+      return next(new AppError("User with this username already exists", 409));
+    }
     const updatedUser = await findAndUpdateUser({ userId }, update, {
       new: true,
     });
