@@ -32,7 +32,7 @@ import { requireSuperAdmin } from "../middleware/requireSuperAdmin";
 import upload from "../middleware/multer";
 import { authVerify } from "../middleware/authVerify";
 import { requireAdmin } from "../middleware/requireAdmin";
-import { requireUser } from "../middleware/requireUser";
+
 
 const router = express.Router();
 
@@ -61,11 +61,11 @@ router.post("/google/login", googleLogInHandler);
 router.post("/login", [validate(loginUserSchema)], loginUserHandler);
 router.post("/forgot-pw", forgotPwHandler);
 router.patch("/password-update", generatePasswordHandler);
-router.patch("/changePw", requireUser, updatePasswordHandler);
+router.patch("/changePw", authVerify, updatePasswordHandler);
 router.patch(
   "/updateProfilePic",
   [
-    requireUser,
+    authVerify,
     upload.fields([
       { name: "profile", maxCount: 1 },
       
@@ -73,7 +73,7 @@ router.patch(
   ],
   updateProfileHandler
 );
-router.patch("/changeAdminPw", requireUser, updateAdminPasswordHandler);
+router.patch("/changeAdminPw", authVerify, updateAdminPasswordHandler);
 router.patch("/:userId", updateUserHandler);
 router.get("/all/admin", getOnlyUsersAndAdmin);
 router.get("/all", getOnlyUsers);

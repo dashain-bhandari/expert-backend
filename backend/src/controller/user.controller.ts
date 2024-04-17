@@ -60,11 +60,11 @@ export async function createUserHandler(
     <div class="container">
      <div class="content">
          <p class="heading">Please click on button below to verify your email.</p>
-         <a class=" verify-button" href="${process.env.FRONTEND_URL}/verify-email/${token}">Verify
+         <a class=" verify-button" href="https://expert-vercel.vercel.app/verify-email/${token}">Verify
              Email</a>
      </div>
      <div class="footer">
-         <p>Thanks and Regards, epeak .</p>
+         <p>Thanks and Regards, expert .</p>
          <p>For any queries contact us here:</p>
          <p>Phone: 98948465474323</p>     
  </div>
@@ -140,22 +140,20 @@ export async function updateUserHandler(
       next(new AppError("User does not exist", 404));
     }
     console.log(update);
-    const existingUserWithEmail = await findUser({ email: update.email, userId: { $ne: userId } });
+    const existingUserWithEmail = await findUser({email: update.email,userId: { $ne: userId }});
     if (existingUserWithEmail) {
+     
       return next(new AppError("User with this email already exists", 409));
     }
 
-    const existingUserWithUsername = await findUser({
-      username: update.username,
-       userId: { $ne: userId }
-    });
+    const existingUserWithUsername = await findUser({$and:[{username: update.username},{userId: { $ne: userId }}]});
     if (existingUserWithUsername) {
       return next(new AppError("User with this username already exists", 409));
     }
     const updatedUser = await findAndUpdateUser({ userId }, update, {
       new: true,
     });
-    console.log(updatedUser);
+    
     return res.json({
       status: "success",
       msg: "Update success",
@@ -438,7 +436,7 @@ export async function logOutHandler(
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
@@ -493,7 +491,7 @@ export async function forgotPwHandler(
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
@@ -521,7 +519,7 @@ export async function generatePasswordHandler(
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
@@ -540,7 +538,7 @@ export async function updatePasswordHandler(
 
     const hashedPassword = await generateHashedPassword(req.body.newPw);
     if (!user) {
-      return res.status(401).send("Invalid password");
+      next(new AppError("Invalid Password", 404));
     }
     const updatedUser = await findAndUpdateUser(
       { email: req.user.email },
@@ -557,17 +555,17 @@ export async function updatePasswordHandler(
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
 export async function googleLogInHandler(
-  req: Request<{}, {}, CreateUserInput["body"]>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const existingUserWithEmail = await findUser({ email: req.body.email });
+    const existingUserWithEmail = await findUser({ gSub: req.body.gSub});
     if (existingUserWithEmail) {
       const accessToken = jwt.sign(
         { user: existingUserWithEmail },
@@ -635,7 +633,7 @@ export async function updateAdminPasswordHandler(
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
