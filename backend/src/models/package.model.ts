@@ -8,7 +8,6 @@ export interface PackageInput {
   heading: string;
   descriptionLong: string;
   expertises:string[],
-  bgImage: string;
   normalImage: string;
 }
 
@@ -28,7 +27,6 @@ const packageSchema = new mongoose.Schema(
     heading: { type: String, required: true },
     descriptionLong: { type: String, required: true },
     expertises: { type: Array(String), required: true },
-    bgImage: { type: String, required: true },
     normalImage: { type: String, required: true },
     name:{type:String,required:true}
   },
