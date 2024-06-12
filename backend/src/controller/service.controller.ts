@@ -14,9 +14,6 @@ export async function createServiceHandler(req: Request<{}, {}, CreateServiceInp
 
     const normal = await uploadSingleFile(normalImage);
 
-    console.log(bg);
-    console.log(normal);
-
     const body = req.body;
     const service = await createService({ ...body, normalImage: normal });
     return res.json({
