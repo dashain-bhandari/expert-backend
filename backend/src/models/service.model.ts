@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
-import { string } from "zod";
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface ServiceInput {
   heading: string;
   descriptionLong: string;
-  expertises:string[],
-  bgImage: string;
+  expertises: string[];
   normalImage: string;
 }
 
@@ -28,7 +26,6 @@ const serviceSchema = new mongoose.Schema(
     heading: { type: String, required: true },
     descriptionLong: { type: String, required: true },
     expertises: { type: Array(String), required: true },
-    bgImage: { type: String, required: true },
     normalImage: { type: String, required: true },
   },
   {
