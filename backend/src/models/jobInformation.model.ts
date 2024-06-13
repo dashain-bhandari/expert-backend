@@ -7,15 +7,14 @@ export interface JobInformationInput {
   position: string;
   timing: string;
   jobType: string;
-  jobDuties:string[];
-  qualification:string[];
-  salary:string;
-  contentImage?:string
+  jobDuties: string[];
+  qualification: string[];
+  salary: string;
+  contentImage?: string;
+  description?: string;
 }
 
-export interface JobInformationDocument
-  extends JobInformationInput,
-    mongoose.Document {
+export interface JobInformationDocument extends JobInformationInput, mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
 }
@@ -34,16 +33,14 @@ const jobSchema = new mongoose.Schema(
     jobDuties: { type: [String], required: true },
     qualification: { type: [String], required: true },
     salary: { type: String, required: true },
-    contentImage:{ type: String, required: false },
+    contentImage: { type: String, required: false },
+    description: { type: String, required: false },
   },
   {
     timestamps: true,
   }
 );
 
-const JobInformationModel = mongoose.model<JobInformationDocument>(
-  "JobInformation",
-  jobSchema
-);
+const JobInformationModel = mongoose.model<JobInformationDocument>("JobInformation", jobSchema);
 
 export default JobInformationModel;
