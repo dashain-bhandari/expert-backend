@@ -2,12 +2,24 @@ import { NextFunction, Request, Response } from "express";
 import { CreatePlanInput, UpdatePlanInput } from "../schema/plan.schema";
 import { createPlan, deletePlan, findAllPlan, findAndUpdatePlan, findPlan } from "../service/plan.service";
 import AppError from "../utils/appError";
+import { uploadSingleFile } from "../middleware/uploadSingleFile";
 var colors = require("colors");
 
 export async function createPlanHandler(req: Request<{}, {}, CreatePlanInput["body"]>, res: Response, next: NextFunction) {
   try {
     const body = req.body;
-    const plan = await createPlan(body);
+    const { files } = req as {
+      files: { [fieldname: string]: Express.Multer.File[] };
+    };
+
+    const contentImage = files["contentImage"][0];
+
+    const img1 = await uploadSingleFile(contentImage);
+    const plan = await createPlan({
+      ...body,
+      contentImage: img1,
+    });
+
     return res.json({
       status: "success",
       msg: "Create success",
@@ -22,7 +34,23 @@ export async function createPlanHandler(req: Request<{}, {}, CreatePlanInput["bo
 export async function updatePlanHandler(req: Request<UpdatePlanInput["params"]>, res: Response, next: NextFunction) {
   try {
     const planId = req.params.planId;
-    const updatedPlan= await findAndUpdatePlan({ planId }, req.body, {
+    const { files } = req as {
+      files?: { [fieldname: string]: Express.Multer.File[] };
+    }; // '?' to make files optional
+
+  
+    const plan = await findPlan({ planId });
+    if (!plan) {
+      next(new AppError("Plan detail does not exist", 404));
+      return; // Return early to avoid further execution
+    }
+  
+    let img1 = plan.contentImage;
+    if (files && files["contentImage"]) {
+      const contentImage = files["contentImage"][0];
+      img1 = await uploadSingleFile(contentImage);
+    }
+    const updatedPlan = await findAndUpdatePlan({ planId }, req.body, {
       new: true,
     });
 
