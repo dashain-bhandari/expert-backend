@@ -50,7 +50,7 @@ export async function updatePlanHandler(req: Request<UpdatePlanInput["params"]>,
       const contentImage = files["contentImage"][0];
       img1 = await uploadSingleFile(contentImage);
     }
-    const updatedPlan = await findAndUpdatePlan({ planId }, req.body, {
+    const updatedPlan = await findAndUpdatePlan({ planId }, {...req.body,contentImage:img1}, {
       new: true,
     });
 
