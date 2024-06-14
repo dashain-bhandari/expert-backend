@@ -7,12 +7,12 @@ export async function createApplication(input: ApplicationInput) {
 }
 
 export async function findApplication(query: FilterQuery<ApplicationDocument>, options: QueryOptions = { lean: true }) {
-  const result = await ApplicationModel.findOne(query, {}, options);
+  const result = await ApplicationModel.findOne(query, {}, options).populate("job");;
   return result;
 }
 
 export async function findAndUpdateApplication(query: FilterQuery<ApplicationDocument>, update: UpdateQuery<ApplicationDocument>, options: QueryOptions) {
-  return ApplicationModel.findOneAndUpdate(query, update, options);
+  return ApplicationModel.findOneAndUpdate(query, update, options).populate("job");;
 }
 
 export async function deleteApplication(query: FilterQuery<ApplicationDocument>) {
