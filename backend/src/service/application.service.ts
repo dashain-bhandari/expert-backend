@@ -20,7 +20,7 @@ export async function deleteApplication(query: FilterQuery<ApplicationDocument>)
 }
 
 export async function findAllApplication() {
-  const result = await ApplicationModel.find();
+  const result = await ApplicationModel.find().populate("job");
   return result;
 }
 

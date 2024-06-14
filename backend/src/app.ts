@@ -29,7 +29,7 @@ import packageRouter from "./routes/package.route";
 import packageEnquiryRouter from "./routes/packageEnquiry.route";
 import facebookRouter from './routes/fb.route';
 import googleRouter from './routes/googleAnalytics.route'
-
+import planRouter from './routes/plan.route'
  const passport = require('../config/passport');
 const app = express();
 const port = 5009;
@@ -95,6 +95,7 @@ app.use("/api/packages", packageRouter);
 app.use("/api/package-enquiries", packageEnquiryRouter);
 app.use('/api/fbAuth',facebookRouter);
 app.use('/api/googleData',googleRouter);
+app.use('/api/plan',planRouter);
 // Testing
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({

@@ -5,6 +5,7 @@ import {
   getAllApplicationHandler,
   deleteApplicationHandler,
   getApplicationFromJobHandler,
+  updateApplicationHandler,
 } from "../controller/application.controller";
 import { validate } from "../middleware/validateResource";
 import {
@@ -28,6 +29,7 @@ router.post(
   createApplicationHandler
 );
 
+router.patch("/:applicationId", updateApplicationHandler);
 
 
 router.get(

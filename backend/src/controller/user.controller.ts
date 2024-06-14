@@ -99,7 +99,7 @@ export async function loginUserHandler(
     const user = await validatePassword(req.body);
 
     if (!user) {
-     
+
       next(new AppError("Invalid email or password", 401));
     }
 
@@ -140,20 +140,20 @@ export async function updateUserHandler(
       next(new AppError("User does not exist", 404));
     }
     console.log(update);
-    const existingUserWithEmail = await findUser({email: update.email,userId: { $ne: userId }});
+    const existingUserWithEmail = await findUser({ email: update.email, userId: { $ne: userId } });
     if (existingUserWithEmail) {
-     
+
       return next(new AppError("User with this email already exists", 409));
     }
 
-    const existingUserWithUsername = await findUser({$and:[{username: update.username},{userId: { $ne: userId }}]});
+    const existingUserWithUsername = await findUser({ $and: [{ username: update.username }, { userId: { $ne: userId } }] });
     if (existingUserWithUsername) {
       return next(new AppError("User with this username already exists", 409));
     }
     const updatedUser = await findAndUpdateUser({ userId }, update, {
       new: true,
     });
-    
+
     return res.json({
       status: "success",
       msg: "Update success",
@@ -266,17 +266,16 @@ export async function getUserFromTokenHandler(
 ) {
   try {
     const decodedUser: any = req.user;
-    const user = await findUser({ userId:decodedUser.userId });
+    const user = await findUser({ userId: decodedUser.userId });
     console.log(req.user);
-   if(user)
-    {
+    if (user) {
       return res.json({
         status: "success",
         msg: "Get user from token success",
-        data:user,
+        data: user,
       });
     }
-    else{
+    else {
       next(new AppError("User doesn't exist", 404));
     }
   } catch (error: any) {
@@ -565,7 +564,7 @@ export async function googleLogInHandler(
   next: NextFunction
 ) {
   try {
-    const existingUserWithEmail = await findUser({ gSub: req.body.gSub});
+    const existingUserWithEmail = await findUser({ gSub: req.body.gSub });
     if (existingUserWithEmail) {
       const accessToken = jwt.sign(
         { user: existingUserWithEmail },
@@ -579,6 +578,7 @@ export async function googleLogInHandler(
       return res.status(201).json({
         status: "success",
         msg: "Log in success",
+        data: existingUserWithEmail,
         accessToken: accessToken,
       });
     }
@@ -667,6 +667,40 @@ export async function updateProfileHandler(
         status: "success",
         msg: "Update success",
         data: updatedUser,
+      });
+    }
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError(error.message, 500));
+  }
+}
+
+
+
+export async function findAndCreateSuperAdmin(req: any,
+  res: Response,
+  next: NextFunction) {
+  try {
+    const user = await findUser({ role: 'super-admin' });
+    if (user) {
+      return user
+    }
+    else {
+      const hashedPassword = await generateHashedPassword('expertBusiness');
+      const obj = {
+        email: "expertBusiness@admin.com",
+        username: "expertAdmin",
+        password: hashedPassword,
+        fullName: "expert business",
+        verifyToken: "",
+        isVerified:true,
+        role: "super-admin"
+      }
+      const createdUser = await createUser(obj);
+      return res.status(201).json({
+        status: "success",
+        msg: "Super admin registration success",
+        data: createdUser,
       });
     }
   } catch (error: any) {

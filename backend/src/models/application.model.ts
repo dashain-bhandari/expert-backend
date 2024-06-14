@@ -12,6 +12,7 @@ export interface ApplicationInput {
   document: string[];
   coverLetter:string;
   job: JobInformationDocument["_id"];
+  viewed?:boolean
 }
 
 export interface ApplicationDocument extends ApplicationInput, mongoose.Document {
@@ -30,6 +31,7 @@ const applicationSchema = new mongoose.Schema(
     name: { type: String, required: true },
     address: { type: String, required: true },
     email: { type: String, required: true },
+    viewed: { type: Boolean, required: false,default:false },
     phoneNo: { type: String, required: true },
     job: {type: mongoose.Schema.Types.ObjectId, ref: "JobInformation" },
     document: { type: [String], required: true },

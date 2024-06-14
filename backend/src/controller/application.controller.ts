@@ -85,6 +85,26 @@ export async function getApplicationHandler(
   }
 }
 
+
+export async function updateApplicationHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const applicationId = req.params.applicationId;
+    const updatedApplication = await findAndUpdateApplication({ applicationId }, {viewed:true}, {
+      new: true,
+    });
+
+    return res.json({
+      status: "success",
+      msg: "Update success",
+      data: updatedApplication,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+
 export async function deleteApplicationHandler(
   req: Request<DeleteApplicationInput["params"]>,
   res: Response,
