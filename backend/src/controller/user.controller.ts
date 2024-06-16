@@ -564,7 +564,7 @@ export async function googleLogInHandler(
   next: NextFunction
 ) {
   try {
-    const existingUserWithEmail = await findUser({ gSub: req.body.gSub });
+    const existingUserWithEmail = await findUser({ email: req.body.email });
     if (existingUserWithEmail) {
       const accessToken = jwt.sign(
         { user: existingUserWithEmail },
