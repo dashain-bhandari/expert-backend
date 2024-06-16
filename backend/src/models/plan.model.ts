@@ -4,9 +4,10 @@ import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface PlanInput {
-  title: string;
-  heading: string;
-  description: string;
+  // title: string;
+  // heading: string;
+  // description: string;
+  link:string;
   contentImage?:string;
 }
 
@@ -23,10 +24,11 @@ const planSchema = new mongoose.Schema(
       unique: true,
       default: () => `plan_${nanoid()}`,
     },
-    title: { type: String, required: true },
-    heading: { type: String, required: true },
+    // title: { type: String, required: true },
+    // heading: { type: String, required: true },
     contentImage: { type: String, required: true },
-    description: { type: String, required: true },
+    link:{type:String,reuired:true}
+    // description: { type: String, required: true },
   },
   {
     timestamps: true,

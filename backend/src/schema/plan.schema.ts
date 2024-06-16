@@ -2,17 +2,21 @@ import { object, number, string, TypeOf, any,array } from "zod";
 
 const payload = {
   body: object({
-    title: string({
-      required_error: "Title is required",
-    }),
+    // title: string({
+    //   required_error: "Title is required",
+    // }),
 
-    heading: string({
-      required_error: "Heading is required",
-    }),
+    // heading: string({
+    //   required_error: "Heading is required",
+    // }),
 
-    description: string({
-        required_error: "Heading is required",
-      }),
+    // description: string({
+    //     required_error: "Heading is required",
+    //   }),
+
+     link: string({
+      required_error: "Link is required",
+    }),
 
     contentImage: any(),
 
