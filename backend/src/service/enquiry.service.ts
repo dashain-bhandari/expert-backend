@@ -8,7 +8,7 @@ export async function createEnquiry(input: enquiryInput) {
 }
 
 export async function findEnquiry(query: FilterQuery<enquiryDocument>, options: QueryOptions = { lean: true }) {
-  const result = await enquiryModel.findOne(query, {}, options).populate("deal").populate("service")
+  const result = await enquiryModel.findOne(query, {}, options).populate("deal").populate("service").populate("package")
   return result;
 }
 
