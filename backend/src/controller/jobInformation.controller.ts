@@ -15,7 +15,7 @@ export async function createJobInformationHandler(req: Request<{}, {}, CreateJob
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
