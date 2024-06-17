@@ -35,6 +35,7 @@ router.patch(
      requireAdmin,
     upload.fields([
       { name: "contentImage", maxCount: 1 },
+      { name: "authorImage", maxCount: 1 },
     ]),
     // validate(updateDealSchema)
   ],
