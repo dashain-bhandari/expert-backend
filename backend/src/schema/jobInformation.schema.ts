@@ -25,7 +25,6 @@ const payload = {
       required_error: "Salary is required",
     }),
 
-    contentImage: any(),
 
 })
 };

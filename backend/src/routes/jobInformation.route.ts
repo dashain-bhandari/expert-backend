@@ -6,8 +6,8 @@ import upload from "../middleware/multer";
 import { requireAdmin } from "../middleware/requireAdmin";
 
 const router = express.Router();
-router.post("/", [requireAdmin, upload.fields([{ name: "contentImage", maxCount: 1 }])], createJobInformationHandler);
-router.patch("/:jobId", [requireAdmin, upload.fields([{ name: "contentImage", maxCount: 1 }])], updateJobInformationHandler);
+router.post("/", [requireAdmin], createJobInformationHandler);
+router.patch("/:jobId", [requireAdmin], updateJobInformationHandler);
 router.get("/:jobId", [validate(getJobInformationSchema)], getJobInformationHandler);
 router.get("/", getAllJobInformationHandler);
 router.delete("/:jobId", [validate(deleteJobInformationSchema), requireAdmin], deleteJobInformationHandler);

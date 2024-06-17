@@ -10,7 +10,7 @@ export interface JobInformationInput {
   jobDuties: string[];
   qualification: string[];
   salary: string;
-  contentImage?: string;
+ 
   description?: string;
 }
 
@@ -33,7 +33,7 @@ const jobSchema = new mongoose.Schema(
     jobDuties: { type: [String], required: true },
     qualification: { type: [String], required: true },
     salary: { type: String, required: true },
-    contentImage: { type: String, required: false },
+ 
     description: { type: String, required: false },
   },
   {
