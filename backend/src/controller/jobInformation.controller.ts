@@ -21,8 +21,8 @@ export async function createJobInformationHandler(req: Request<{}, {}, CreateJob
 
 export async function updateJobInformationHandler(req: Request<UpdateJobInformationInput["params"]>, res: Response, next: NextFunction) {
   try {
-    const jobInformationId = req.params.jobId;
-    const updatedJobInformation = await findAndUpdateJobInformation({ jobId:jobInformationId }, req.body, {
+    const jobId = req.params.jobId;
+    const updatedJobInformation = await findAndUpdateJobInformation({ jobId:jobId }, req.body, {
       new: true,
     });
 
@@ -59,14 +59,14 @@ export async function getJobInformationHandler(req: Request<UpdateJobInformation
 
 export async function deleteJobInformationHandler(req: Request<UpdateJobInformationInput["params"]>, res: Response, next: NextFunction) {
   try {
-    const jobInformationId = req.params.jobId;
-    const jobInformation = await findJobInformation({ jobId:jobInformationId });
+    const jobId = req.params.jobId;
+    const jobInformation = await findJobInformation({ jobId:jobId });
 
     if (!jobInformation) {
       next(new AppError("JobInformation does not exist", 404));
     }
 
-    await deleteJobInformation({ jobInformationId });
+    await deleteJobInformation({ jobId });
     return res.json({
       status: "success",
       msg: "Delete success",
