@@ -4,8 +4,8 @@ export const uploadMultipleFiles = async (files: any[]) => {
   const uploadedUrls = [];
   console.log(`files: ${files}`);
   for (const file of files) {
-    if (file.size > 400000) {
-      throw new Error("File size exceeds the limit of 400KB");
+    if (file.size > 600000) {
+      throw new Error("File size exceeds the limit of 600KB");
     }
     const currentDateTime = new Date().toISOString().replace(/[-:.]/g, "");
     const originalnameWithoutExtension = file.originalname

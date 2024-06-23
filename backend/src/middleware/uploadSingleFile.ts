@@ -3,8 +3,8 @@ import cloudinary from "../../config/cloudinaryConfig";
 // Middleware function for uploading single file to Cloudinary
 export const uploadSingleFile = async (file: any) => 
 {
-  if (file.size > 400000) {
-    throw new Error("File size exceeds the limit of 400KB");
+  if (file.size > 600000) {
+    throw new Error("File size exceeds the limit of 600KB");
   }
   console.log(file)
   const currentDateTime = new Date().toISOString().replace(/[-:.]/g, ""); // Get current date and time
