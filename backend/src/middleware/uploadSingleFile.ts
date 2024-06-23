@@ -21,7 +21,7 @@ export const uploadSingleFile = async (file: any) =>
     // For non-image files (PDF, DOCX), specify resource_type: 'raw'
     uploadOptions.resource_type = 'raw';
   }
-  const result = await cloudinary.uploader.upload(file.path, { public_id: publicId });
+  const result = await cloudinary.uploader.upload(file.path, uploadOptions);
   console.log(result)
   return result.secure_url;
 };

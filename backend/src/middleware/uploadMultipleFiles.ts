@@ -25,9 +25,7 @@ export const uploadMultipleFiles = async (files: any[]) => {
       uploadOptions.resource_type = 'raw';
     }
 
-    const result = await cloudinary.uploader.upload(file.path, {
-      public_id: publicId,
-    });
+    const result = await cloudinary.uploader.upload(file.path, uploadOptions);
 
     uploadedUrls.push(result.secure_url);
     console.log(uploadedUrls)
